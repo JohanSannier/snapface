@@ -1,6 +1,11 @@
-<div class="face-snap-card">
-  <h2>{{ faceSnap.title }}</h2>
-  <p>Mis en ligne le : {{ faceSnap.createdDate.toLocaleString() }}</p>
+<div class="face-snap-card" [ngClass]="{ snapped: hasSnapped }">
+  <h2>{{ faceSnap.title | titlecase }}</h2>
+  <!-- <p>{{ 4346234.76 | number: "1.0-1" }}</p>
+  <p>{{ 0.645 | percent: "1.0-1" }}</p>
+  <p>{{ 344.56 | currency: "EUR":"code" }}</p> -->
+  <p>
+    Mis en ligne {{ faceSnap.createdDate | date: "le d MMMM yyyy, à HH:mm" }}
+  </p>
   <img [src]="faceSnap.imageUrl" [alt]="faceSnap.title" />
   <p>{{ faceSnap.description }}</p>
   <p *ngIf="faceSnap.location">Photo prise à {{ faceSnap.location }}</p>
@@ -8,6 +13,8 @@
     <button (click)="onSnap()">
       {{ hasSnapped ? "Oops, unsnap!" : "Oh snap!" }}
     </button>
-    👍 {{ faceSnap.snaps }}
+    <span [ngStyle]="{ color: 'rgb(0,' + faceSnap.snaps + ', 0)' }">
+      👍 {{ faceSnap.snaps }}
+    </span>
   </p>
 </div>
