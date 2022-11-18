@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FaceSnap } from '../models/face-snap.model';
 import { FaceSnapService } from '../services/face-snaps.service';
 
@@ -12,7 +13,10 @@ export class FaceSnapComponent implements OnInit {
 
   hasSnapped!: boolean;
 
-  constructor(private faceSnapService: FaceSnapService) {}
+  constructor(
+    private faceSnapService: FaceSnapService,
+    private route: Router
+  ) {}
 
   ngOnInit() {
     this.hasSnapped = false;
@@ -26,5 +30,9 @@ export class FaceSnapComponent implements OnInit {
       this.faceSnapService.snapFaceSnapById(this.faceSnap.id, 'unsnap');
       this.hasSnapped = false;
     }
+  }
+
+  onViewFaceSnap() {
+    this.route.navigateByUrl('facesnaps/' + this.faceSnap.id);
   }
 }
